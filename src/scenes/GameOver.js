@@ -15,6 +15,7 @@ export default class GameOver extends Phaser.Scene {
     winScreen1Text
     winScreen2Text
     btnAgain
+    click
 
     constructor() {
         super('gameOver')
@@ -32,6 +33,8 @@ export default class GameOver extends Phaser.Scene {
         this.load.image('winScreen1', 'winScreen1.png')
         this.load.image('btnAgain', 'btnAgain.png')
 
+        this.load.setPath('audio/')
+        this.load.audio('click', ['click.ogg', 'click.mp3'])
 
     }
 
@@ -40,9 +43,11 @@ export default class GameOver extends Phaser.Scene {
         const winBackground = this.add.image(this.width / 2, this.height / 2, 'winBackground')
         winBackground.setDisplaySize(this.width, this.height)
 
+        this.click = this.sound.add('click')
         this.btnAgain = this.add.image(this.width / 2, this.height * 0.9, 'btnAgain')
             .setInteractive({ useHandCursor: true })
             .on('pointerup', () => {
+                this.click.play()
                 this.scene.start('settings')
             })
         this.winScreen1 = this.add.image(this.width / 2, this.height * 0.25, 'winScreen1')
