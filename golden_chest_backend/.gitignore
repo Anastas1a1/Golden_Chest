@@ -1,0 +1,7 @@
+**settings.py
+**.pyc
+**.DS_Store
+**__pycache__/
+**.txt
+**migrations/
+**.env

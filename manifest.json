@@ -1,0 +1,9 @@
+{
+	"short_name": "Golden chest",
+  	"name": "Golden chest",
+	"display": "fullscreen",
+	"orientation": "portrait",
+	"icons": [
+		{ "src": "assets/menu_icon.png", "type": "image/png", "sizes": "512x512" }
+	  ]
+}

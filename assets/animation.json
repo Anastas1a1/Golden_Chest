@@ -1,0 +1,37 @@
+{
+    "frames": [
+      {
+        "filename": "sprite-0",
+        "frame": { "x": 0, "y": 26, "w": 233.33, "h": 210.83 }
+      },
+      {
+        "filename": "sprite-1",
+        "frame": { "x": 268, "y": 16, "w": 233.33, "h": 221 }
+      },
+      {
+        "filename": "sprite-2",
+        "frame": { "x": 537, "y": 0, "w": 233.33, "h": 237 }
+      },
+      {
+        "filename": "sprite-3",
+        "frame": { "x": 0, "y": 341, "w": 233, "h": 248 }
+      },
+      {
+        "filename": "sprite-4",
+        "frame": { "x": 268, "y": 335, "w": 233, "h": 254 }
+      },
+      {
+        "filename": "sprite-5",
+        "frame": { "x": 537, "y": 328, "w": 233, "h": 261 }
+      }
+    ],
+    "meta": {
+        "app": "Phaser",
+        "version": "3.55.2",
+        "image": "animation.png",
+        "format": "RGBA8888",
+        "size": {"w": 770, "h": 589.18},
+        "scale": 1
+    }
+  }
+  

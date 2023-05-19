@@ -1,0 +1,37 @@
+{
+    "frames": [
+      {
+        "filename": "sprite-0",
+        "frame": { "x": 0, "y": 0, "w": 500, "h": 500 }
+      },
+      {
+        "filename": "sprite-1",
+        "frame": { "x": 500, "y": 0, "w": 500, "h": 500 }
+      },
+      {
+        "filename": "sprite-2",
+        "frame": { "x": 1000, "y": 0, "w": 500, "h": 500 }
+      },
+      {
+        "filename": "sprite-3",
+        "frame": { "x": 1500, "y": 0, "w": 500, "h": 500 }
+      },
+      {
+        "filename": "sprite-4",
+        "frame": { "x": 2000, "y": 0, "w": 500, "h": 500 }
+      },
+      {
+        "filename": "sprite-5",
+        "frame": { "x": 2500, "y": 0, "w": 500, "h": 500 }
+      }
+    ],
+    "meta": {
+        "app": "Phaser",
+        "version": "3.55.2",
+        "image": "wheelLoader.png",
+        "format": "RGBA8888",
+        "size": {"w": 2500, "h": 500},
+        "scale": 1
+    }
+  }
+  
