@@ -219,7 +219,9 @@ export default class GameAgainstBot extends Phaser.Scene {
         else {
             this.winUserValue += value
             this.pickWinText.setText(`Забрать выигрыш\n${this.winUserValue}`)
-            this.botMove()
+            setTimeout(() => {
+                this.botMove()
+            },700)
         }
     }
 
