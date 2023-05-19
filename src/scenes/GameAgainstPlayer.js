@@ -75,7 +75,7 @@ export default class GameAgainstPlayer extends Phaser.Scene {
     create() {
         const { token, gameId, secondPlayer } = this.sys.settings.data;
         console.log(`Token ${token}, GameId ${gameId}, secondPlayer ${secondPlayer}`);
-        this.socket = new WebSocket(`ws://localhost:8000/ws/golden_chest/${gameId}/?token=${token}`);
+        this.socket = new WebSocket(`ws://3.75.158.163:8000/ws/golden_chest/${gameId}/?token=${token}`);
 
         this.socket.addEventListener('close', (event) => {
             this.backSound.stop()
