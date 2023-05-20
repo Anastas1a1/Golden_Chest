@@ -48,7 +48,7 @@ export default class Settings extends Phaser.Scene {
             .setInteractive({ useHandCursor: true })
             .on('pointerup', () => {
 
-                const socket = new WebSocket('ws://3.75.158.163:8000/ws/game/');
+                const socket = new WebSocket('wss://3.75.158.163:8000/ws/game/');
 
                 socket.addEventListener('open', (event) => {
                     console.log('WebSocket connection established');
