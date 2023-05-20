@@ -99,7 +99,7 @@ export default class GameAgainstPlayer extends Phaser.Scene {
                     }        
 
                 } else {
-                    // this.firstUser()
+                    this.firstUser()
                     this.secUser(message)
                 }
 
@@ -242,19 +242,19 @@ export default class GameAgainstPlayer extends Phaser.Scene {
             loop: true
         })
         this.btnSounds = this.add.image(this.width * 0.07, headerHeight, 'btnSounds')
-        .setInteractive({ useHandCursor: true })
-        .on('pointerup', () => {
-            if (this.soundFlag){
-                this.backSound.play({
-                    loop: true
-                })
-                this.soundFlag = false
-            }
-            else {
-                this.backSound.stop()
-                this.soundFlag = true
-            }
-        })
+            .setInteractive({ useHandCursor: true })
+            .on('pointerup', () => {
+                if (this.soundFlag){
+                    this.backSound.play({
+                        loop: true
+                    })
+                    this.soundFlag = false
+                }
+                else {
+                    this.backSound.stop()
+                    this.soundFlag = true
+                }
+            })
 
 
     }
@@ -290,7 +290,7 @@ export default class GameAgainstPlayer extends Phaser.Scene {
         this.btnBackSettings = this.add.image(this.width / 2, this.height * 0.85 , 'btnBackSettings')
             .setInteractive({ useHandCursor: true })
             .on('pointerup', () => {
-                if (this.socket && this.socket.readyState === WebSocket.OPEN) {
+                if (this.socket) {
                     this.backSound.stop()
                     this.socket.close();
                 }
