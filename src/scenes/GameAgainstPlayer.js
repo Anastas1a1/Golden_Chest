@@ -286,7 +286,6 @@ export default class GameAgainstPlayer extends Phaser.Scene {
         this.headerLoadOpponent = this.add.image(this.width / 2, 100, 'headerLoadOpponent')
         this.loadContainer.add(spriteWheelLoader)
         this.loadContainer.add(this.headerLoadOpponent)
-        btnBackSettings
 
         this.btnBackSettings = this.add.image(this.width / 2, this.height * 0.85 , 'btnBackSettings')
             .setInteractive({ useHandCursor: true })
@@ -297,10 +296,7 @@ export default class GameAgainstPlayer extends Phaser.Scene {
                 }
                 this.scene.start('settings')
             })
-
-        this.loadContainer.add(btnBackSettings)
         this.loadContainer.add(this.btnBackSettings)
-
     }
 
     stopLoad() {
