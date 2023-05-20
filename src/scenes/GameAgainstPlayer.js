@@ -9,6 +9,7 @@ export default class GameAgainstPlayer extends Phaser.Scene {
 
     chestContainer
     loadContainer
+    btnBackSettings
 
     winUserValue
     winBotValue
@@ -52,6 +53,7 @@ export default class GameAgainstPlayer extends Phaser.Scene {
         this.load.setPath('assets/')
         this.load.image('background', 'background.png')
         this.load.atlas('wheelLoader', 'wheelLoader.png', 'wheelLoader.json')
+        this.load.image('btnBackSettings', 'btnBackSettings.png')
         this.load.image('btnInfo', 'btnInfo.png')
         this.load.image('btnSounds', 'btnSounds.png')
         this.load.image('rules', 'rules.png')
@@ -284,6 +286,21 @@ export default class GameAgainstPlayer extends Phaser.Scene {
         this.headerLoadOpponent = this.add.image(this.width / 2, 100, 'headerLoadOpponent')
         this.loadContainer.add(spriteWheelLoader)
         this.loadContainer.add(this.headerLoadOpponent)
+        btnBackSettings
+
+        this.btnBackSettings = this.add.image(this.width / 2, this.height * 0.85 , 'btnBackSettings')
+            .setInteractive({ useHandCursor: true })
+            .on('pointerup', () => {
+                if (this.socket && this.socket.readyState === WebSocket.OPEN) {
+                    this.backSound.stop()
+                    this.socket.close();
+                }
+                this.scene.start('settings')
+            })
+
+        this.loadContainer.add(btnBackSettings)
+        this.loadContainer.add(this.btnBackSettings)
+
     }
 
     stopLoad() {
