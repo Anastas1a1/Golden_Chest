@@ -110,7 +110,7 @@ export default class GameAgainstPlayer extends Phaser.Scene {
                     } else {
                         this.scene.start('gameOver', { winUserValue: message.opponentScore, winBotValue: message.currentScore })
                     }
-                  }, 500);
+                  }, 700);
 
             } else {
                 console.error('Error:', message.error);

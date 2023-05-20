@@ -110,7 +110,9 @@ export default class GameAgainstBot extends Phaser.Scene {
             .on('pointerup', () => {
                 this.backSound.stop()
                 this.win.play()
-                this.scene.start('gameOver', { winUserValue: this.winUserValue, winBotValue: this.winBotValue })
+                setTimeout(() => {
+                    this.scene.start('gameOver', { winUserValue: this.winUserValue, winBotValue: this.winBotValue })
+                }, 700);
             })
 
         this.headerYourTurn = this.add.image(this.width / 2, headerHeight, 'headerYourTurn')
@@ -213,8 +215,9 @@ export default class GameAgainstBot extends Phaser.Scene {
             this.pickWinText.setInteractive({ useHandCursor: false })
             this.backSound.stop()
             this.win.play()
-            this.scene.start('gameOver', { winUserValue: this.winUserValue, winBotValue: this.winBotValue })
-
+            setTimeout(() => {
+                this.scene.start('gameOver', { winUserValue: this.winUserValue, winBotValue: this.winBotValue })
+            }, 700);
         }
         else {
             this.winUserValue += value
@@ -248,7 +251,9 @@ export default class GameAgainstBot extends Phaser.Scene {
                     this.winBotValue = value;
                     this.win.play()
                     this.backSound.stop()
-                    this.scene.start('gameOver', { winUserValue: this.winUserValue, winBotValue: this.winBotValue })
+                    setTimeout(() => {
+                        this.scene.start('gameOver', { winUserValue: this.winUserValue, winBotValue: this.winBotValue })
+                    }, 700);
                 }
                 else {
                     this.winBotValue += value;
@@ -261,7 +266,9 @@ export default class GameAgainstBot extends Phaser.Scene {
             console.log('Все открыты')
             this.win.play()
             this.backSound.stop()
-            this.scene.start('gameOver', { winUserValue: this.winUserValue, winBotValue: this.winBotValue })
+            setTimeout(() => {
+                this.scene.start('gameOver', { winUserValue: this.winUserValue, winBotValue: this.winBotValue })
+            }, 700);
         }
     }
 
