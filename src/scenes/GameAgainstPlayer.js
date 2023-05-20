@@ -97,9 +97,10 @@ export default class GameAgainstPlayer extends Phaser.Scene {
                     }        
 
                 } else {
-                    this.firstUser()
+                    // this.firstUser()
                     this.secUser(message)
                 }
+
             } else if (message.groupGameOverSuccess) {
                 this.socket.close()
                 setTimeout(() => {
