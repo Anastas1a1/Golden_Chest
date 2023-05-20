@@ -124,7 +124,7 @@ class GameConsumer(AsyncWebsocketConsumer):
             except Box.DoesNotExist:
                 return
 
-            if not box.is_open:
+            if box_number != 15:
                 players = await self.get_players()
                 for player in players:
                     if player.name == self.token:
@@ -142,14 +142,14 @@ class GameConsumer(AsyncWebsocketConsumer):
                             'score': player.current_score
                         }))
 
-                box.is_open = True
-                await database_sync_to_async(box.save)()
-                await self.channel_layer.group_send(
-                    self.game_id, {
-                        'type': 'game_message',
-                        'turn': self.token,
-                        'boxNumber': box_number,
-                    })
+                        box.is_open = True
+                        await database_sync_to_async(box.save)()
+                        await self.channel_layer.group_send(
+                            self.game_id, {
+                                'type': 'game_message',
+                                'turn': self.token,
+                                'boxNumber': box_number,
+                            })
 
             else:
                 players = await self.get_players()
