@@ -91,15 +91,15 @@ export default class GameAgainstPlayer extends Phaser.Scene {
                 this.userMove(message)
             }
             else if (message.groupSuccess) {
-                if (message.boxNumber == 15) {
-                    if (message.turn == token ) {
+                if (message.turn == token) {
+                    if (message.boxNumber == 15) {
                         this.stopLoad()
                     } else {
                         this.firstUser()
                     }        
 
                 } else {
-                    this.firstUser()
+                    this.firstUser(message)
                     this.secUser(message)
                 }
 
@@ -349,29 +349,32 @@ export default class GameAgainstPlayer extends Phaser.Scene {
     }
 
 
-    firstUser() {
-        this.headerYourTurn.setVisible(true)
-        this.headerWaitTurn.setVisible(false)
-        this.chestContainer.list.forEach((_chest) => {
-            _chest.chest.setInteractive();
-        })
-        console.log(this.winUserValue)
-        if (this.winUserValue != 0)
-            this.pickWinBackground.setInteractive()
+    firstUser(message) {
+        if (message.turn == this.token){
+            this.headerYourTurn.setVisible(true)
+            this.headerWaitTurn.setVisible(false)
+            this.chestContainer.list.forEach((_chest) => {
+                _chest.chest.setInteractive();
+            })
+            console.log(this.winUserValue)
+            if (this.winUserValue != 0)
+                this.pickWinBackground.setInteractive()
+        }
     }
 
     secUser(message) {
-        if (message.boxNumber != 15){
-            this.chestEmpty.play()
-            this.chestContainer.list[message.boxNumber].playOpenChestAnimation(() => { })
+        if (message.turn != this.token){
+            if (message.boxNumber != 15){
+                this.chestEmpty.play()
+                this.chestContainer.list[message.boxNumber].playOpenChestAnimation(() => { })
+            }
+            this.headerYourTurn.setVisible(false)
+            this.headerWaitTurn.setVisible(true)
+            this.chestContainer.list.forEach((_chest) => {
+                _chest.chest.disableInteractive()
+            })
+            this.pickWinBackground.disableInteractive()
         }
-        this.headerYourTurn.setVisible(false)
-        this.headerWaitTurn.setVisible(true)
-        this.chestContainer.list.forEach((_chest) => {
-            _chest.chest.disableInteractive()
-        })
-        this.pickWinBackground.disableInteractive()
-
     }
 
 
