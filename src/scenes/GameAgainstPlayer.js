@@ -91,16 +91,25 @@ export default class GameAgainstPlayer extends Phaser.Scene {
                 this.userMove(message)
             }
             else if (message.groupSuccess) {
-                if (message.turn == token) {
-                    if (message.boxNumber == 15) {
+                // if (message.turn == token) {
+                if (message.turn == token && message.boxNumber == 15) {
+                    if (this.loadContainer)
                         this.stopLoad()
-                    } else {
-                        this.firstUser()
-                    }        
+                        this.headerYourTurn.setVisible(true)
+                    // this.firstUser()
+                } 
+                    // else {
+                        
+                    //     this.secUser()
+                    // }        
 
-                } else {
+                else if  (message.turn == token){
                     this.firstUser(message)
+                }
+                else{
+                    console.log('f_start')
                     this.secUser(message)
+                    
                 }
 
             } else if (message.groupGameOverSuccess) {
@@ -178,6 +187,7 @@ export default class GameAgainstPlayer extends Phaser.Scene {
             .setVisible(false)
 
         this.headerYourTurn = this.add.image(this.width / 2, headerHeight, 'headerYourTurn')
+            .setVisible(false)
 
         this.pickWinText = this.add.text(this.pickWinBackground.x, this.pickWinBackground.y, '',
             {
@@ -350,32 +360,35 @@ export default class GameAgainstPlayer extends Phaser.Scene {
 
 
     firstUser(message) {
-        if (message.turn =! this.token){
-            this.headerYourTurn.setVisible(true)
-            this.headerWaitTurn.setVisible(false)
-            this.chestContainer.list.forEach((_chest) => {
-                _chest.chest.setInteractive();
-            })
-            console.log(this.winUserValue)
-            if (this.winUserValue != 0)
-                this.pickWinBackground.setInteractive()
+        if (message.boxNumber != 15){
+            this.chestEmpty.play()
+            this.chestContainer.list[message.boxNumber].playOpenChestAnimation(() => { })
         }
+        this.headerYourTurn.setVisible(true)
+        this.headerWaitTurn.setVisible(false)
+        this.chestContainer.list.forEach((_chest) => {
+            _chest.chest.setInteractive();
+        })
+        console.log(this.winUserValue)
+        if (this.winUserValue != 0)
+            this.pickWinBackground.setInteractive()
     }
 
     secUser(message) {
-        if (message.turn == this.token){
-            if (message.boxNumber != 15){
-                this.chestEmpty.play()
-                this.chestContainer.list[message.boxNumber].playOpenChestAnimation(() => { })
-            }
-            this.headerYourTurn.setVisible(false)
-            this.headerWaitTurn.setVisible(true)
-            this.chestContainer.list.forEach((_chest) => {
-                _chest.chest.disableInteractive()
-            })
-            this.pickWinBackground.disableInteractive()
-        }
+        console.log('sec - ', message.boxNumber)
+        // if (message.boxNumber != 15){
+        //     this.chestEmpty.play()
+        //     this.chestContainer.list[message.boxNumber].playOpenChestAnimation(() => { })
+        // }
+        this.headerYourTurn.setVisible(false)
+        this.headerWaitTurn.setVisible(true)
+        this.chestContainer.list.forEach((_chest) => {
+            _chest.chest.disableInteractive()
+        })
+        this.pickWinBackground.disableInteractive()
+
     }
+
 
 
     shutdown() {
