@@ -91,8 +91,8 @@ export default class GameAgainstPlayer extends Phaser.Scene {
                 this.userMove(message)
             }
             else if (message.groupSuccess) {
-                if (message.turn == token) {
-                    if (message.boxNumber == 15) {
+                if (message.boxNumber == 15) {
+                    if (message.turn == token ) {
                         this.stopLoad()
                     } else {
                         this.firstUser()
