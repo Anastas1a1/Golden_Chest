@@ -350,7 +350,7 @@ export default class GameAgainstPlayer extends Phaser.Scene {
 
 
     firstUser(message) {
-        if (message.turn == this.token){
+        if (message.turn =! this.token){
             this.headerYourTurn.setVisible(true)
             this.headerWaitTurn.setVisible(false)
             this.chestContainer.list.forEach((_chest) => {
@@ -363,7 +363,7 @@ export default class GameAgainstPlayer extends Phaser.Scene {
     }
 
     secUser(message) {
-        if (message.turn != this.token){
+        if (message.turn == this.token){
             if (message.boxNumber != 15){
                 this.chestEmpty.play()
                 this.chestContainer.list[message.boxNumber].playOpenChestAnimation(() => { })
