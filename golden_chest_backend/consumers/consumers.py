@@ -20,8 +20,11 @@ class StartConsumer(AsyncWebsocketConsumer):
                 message = text_data_json['message']
                 if message == 'start_game':
                     print(message)
-
-                    new_game, game_id = await self.check_unique_game_id()
+                    try:
+                        new_game, game_id = await self.check_unique_game_id()
+                    except:
+                        print('new_game: ошибка подключения к дб')
+                        new_game, game_id = True, 1
                     second_player = True
                     if new_game:
                         second_player = False
@@ -29,7 +32,11 @@ class StartConsumer(AsyncWebsocketConsumer):
 
                     token = ''.join(random.choices(
                         string.ascii_letters + string.digits, k=8))
-                    await self.create_player(game_id, token)
+                    try:
+                        await self.create_player(game_id, token)
+                    except:
+                        print('Создание пользователя неуспешно')    
+                    
 
                     await self.send(text_data=json.dumps({
                         'success': True,
@@ -53,8 +60,7 @@ class StartConsumer(AsyncWebsocketConsumer):
     def check_unique_game_id(self):
         game_id_counts = Player.objects.values(
             'game_id').annotate(count=Count('game_id'))
-        unique_game_ids = [game_id['game_id']
-                           for game_id in game_id_counts if game_id['count'] == 1]
+        unique_game_ids = [game_id['game_id'] for game_id in game_id_counts if game_id['count'] == 1]
         if unique_game_ids:
             return False, unique_game_ids[0]
         else:
@@ -124,7 +130,22 @@ class GameConsumer(AsyncWebsocketConsumer):
             except Box.DoesNotExist:
                 return
 
-            if box_number != 15:
+            if box.is_open:
+                players = await self.get_players()
+                for player in players:
+                    if player.name != self.token:
+                        turn = player.name
+
+                await self.channel_layer.group_send(
+                    self.game_id, {
+                        'type': 'game_message',
+                        'turn': turn,
+                        'boxNumber': box_number,
+                    })
+                
+            else:
+                box.is_open = True
+                await database_sync_to_async(box.save)()
                 players = await self.get_players()
                 for player in players:
                     if player.name == self.token:
@@ -142,27 +163,9 @@ class GameConsumer(AsyncWebsocketConsumer):
                             'score': player.current_score
                         }))
 
-                        box.is_open = True
-                        await database_sync_to_async(box.save)()
-                        await self.channel_layer.group_send(
-                            self.game_id, {
-                                'type': 'game_message',
-                                'turn': self.token,
-                                'boxNumber': box_number,
-                            })
 
-            else:
-                players = await self.get_players()
-                for player in players:
-                    if player.name != self.token:
-                        turn = player.name
+ 
 
-                await self.channel_layer.group_send(
-                    self.game_id, {
-                        'type': 'game_message',
-                        'turn': turn,
-                        'boxNumber': box_number,
-                    })
 
 
     async def game_over_check(self):
